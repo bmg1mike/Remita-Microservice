@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Features.AccecptPayments.TransactionStatus.CheckTransactionStatusByRRR
 {
-    public class CheckTransactionStatusByRRRHandler : IRequestHandler<CheckTransactionStatusByRRRCommand, TransactionStatusResponse>
+    public class CheckTransactionStatusByRRRHandler : IRequestHandler<CheckTransactionStatusByRRRCommand, TransactionResponse>
     {
         private readonly ITransactionStatusService _transactionService;
         private readonly ILogger<CheckTransactionStatusByRRRHandler> _logger;
@@ -16,11 +16,11 @@ namespace Application.Features.AccecptPayments.TransactionStatus.CheckTransactio
             _transactionService = transactionService;
         }
 
-        public async Task<TransactionStatusResponse> Handle(CheckTransactionStatusByRRRCommand request, CancellationToken cancellationToken)
+        public async Task<TransactionResponse> Handle(CheckTransactionStatusByRRRCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                 var status = await _transactionService.CheckTransactionStatus(request.RRR);
+                 var status = await _transactionService.CheckTransactionStatusByRRR(request.RRR);
                  return status;
             }
             catch (Exception ex)

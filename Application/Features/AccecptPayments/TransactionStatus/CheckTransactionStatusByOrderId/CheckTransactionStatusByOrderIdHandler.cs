@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Features.AccecptPayments.TransactionStatus.CheckTransactionStatusByOrderId
 {
-    public class CheckTransactionStatusByOrderIdHandler : IRequestHandler<CheckTransactionStatusByOrderIdCommand, TransactionStatusResponse>
+    public class CheckTransactionStatusByOrderIdHandler : IRequestHandler<CheckTransactionStatusByOrderIdCommand, TransactionResponse>
     {
         private readonly ITransactionStatusService _transactionService;
         private readonly ILogger<CheckTransactionStatusByOrderIdHandler> _logger;
@@ -16,11 +16,11 @@ namespace Application.Features.AccecptPayments.TransactionStatus.CheckTransactio
             _transactionService = transactionService;
         }
 
-        public async Task<TransactionStatusResponse> Handle(CheckTransactionStatusByOrderIdCommand request, CancellationToken cancellationToken)
+        public async Task<TransactionResponse> Handle(CheckTransactionStatusByOrderIdCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                 var status = await _transactionService.CheckTransactionStatus(request.OrderId);
+                 var status = await _transactionService.CheckTransactionStatusByOrderId(request.OrderId);
 
                  return status;
             }

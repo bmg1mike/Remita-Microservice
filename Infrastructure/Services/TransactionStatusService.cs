@@ -49,5 +49,64 @@ namespace Infrastructure.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<TransactionResponse> CheckTransactionStatusByOrderId(string orderId)
+        {
+            try
+            {
+                var merchantId = _config["Remita:CheckoutSolution:merchantId"];
+                var apiKey = _config["Remita:CheckoutSolution:apiKey"];
+                var apiHash = Hashing.HashSha512Data($"{orderId}{apiKey}{merchantId}");
+                var authorization = $"remitaConsumerKey={merchantId},remitaConsumerToken={apiHash}";
+                var hostUrl = $"https://remitademo.net/remita/exapp/api/v1/send/api/echannelsvc/{merchantId}/{orderId}/{apiHash}/orderstatus.reg";
+                var headers = new Dictionary<string,string>();
+                headers.Add("Content-Type", "application/json");
+                headers.Add("Authorization",authorization);
+                var response = await _client.HttpAsync(Method.GET,hostUrl,headers,null);
+
+                if (response.IsSuccessful)
+                {
+                    var result = response.Content;
+                    return JsonConvert.DeserializeObject<TransactionResponse>(result);
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<TransactionResponse> CheckTransactionStatusByRRR(string rrr)
+        {
+            try
+            {
+                var merchantId = _config["Remita:CheckoutSolution:merchantId"];
+                var apiKey = _config["Remita:CheckoutSolution:apiKey"];
+                var apiHash = Hashing.HashSha512Data($"{rrr}{apiKey}{merchantId}");
+                var authorization = $"remitaConsumerKey={merchantId},remitaConsumerToken={apiHash}";
+                var hostUrl = $"https://remitademo.net/remita/exapp/api/v1/send/api/echannelsvc/{merchantId}/{rrr}/{apiHash}/orderstatus.reg";
+                var headers = new Dictionary<string,string>();
+                headers.Add("Content-Type", "application/json");
+                headers.Add("Authorization",authorization);
+
+                var response = await _client.HttpAsync(Method.GET,hostUrl,headers,null);
+
+                if (response.IsSuccessful)
+                {
+                    var result = response.Content;
+                    return JsonConvert.DeserializeObject<TransactionResponse>(result);
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

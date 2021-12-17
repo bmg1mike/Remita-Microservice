@@ -16,7 +16,7 @@ namespace Api.Controllers.AccecptPayments
         }
 
         [HttpPost("CheckTransactionStatusByOrderId")]
-        [ProducesResponseType(200,Type = typeof(TransactionStatusResponse))]
+        [ProducesResponseType(200,Type = typeof(TransactionResponse))]
         public async Task<IActionResult> CheckTransactionStatusByOrderId(CheckTransactionStatusByOrderIdCommand command)
         {
             var result = await _mediator.Send(command);
@@ -24,7 +24,7 @@ namespace Api.Controllers.AccecptPayments
         }
 
         [HttpPost("CheckTransactionStatusByRRR")]
-        [ProducesResponseType(200,Type = typeof(TransactionStatusResponse))]
+        [ProducesResponseType(200,Type = typeof(TransactionResponse))]
         public async Task<IActionResult> CheckTransactionStatusByRRR(CheckTransactionStatusByRRRCommand command)
         {
             var result = await _mediator.Send(command);
