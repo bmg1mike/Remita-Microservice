@@ -1,5 +1,6 @@
 using Application.Features.AccecptPayments.TransactionStatus.CheckTransactionStatusByOrderId;
 using Application.Features.AccecptPayments.TransactionStatus.CheckTransactionStatusByRRR;
+using Application.Features.AccecptPayments.TransactionStatus.CheckTransactionStatusByTransactionId;
 using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,13 @@ namespace Api.Controllers.AccecptPayments
         {
             var result = await _mediator.Send(command);
             return Ok(result);
+        }
+
+        [HttpPost("CheckTransactionStatusByTransactionId")]
+        [ProducesResponseType(200,Type = typeof(TransactionStatusResponse))]
+        public async Task<IActionResult> CheckTransactionStatusByTransactionId(CheckTransactionStatusByTransactionIdCommand command)
+        {
+            return Ok(await _mediator.Send(command));
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Application.Extensions
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddScoped<IHttpCommunication,HttpCommunication>();
             services.AddScoped<ITransactionStatusService,TransactionStatusService>();
+            services.AddScoped<ILendingSupportService,LendingSupportService>();
             // services.AddHttpClient<ITransactionStatusService,TransactionStatusService>(x =>
             //     x.BaseAddress = new Uri(config["Remita:BaseUrl"]))
             //     .AddPolicyHandler(GetRetryPolicy())
