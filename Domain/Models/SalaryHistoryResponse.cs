@@ -17,24 +17,24 @@ namespace Domain.Models
         public Data Data { get; set; }
     }
 
-    public class Data
-    {
-        public string customerId { get; set; }
-        public string accountNumber { get; set; }
-        public string bankCode { get; set; }
-        public string bvn { get; set; }
-        public string companyName { get; set; }
-        public string category { get; set; }
-        public string firstPaymentDate { get; set; }
-        public string salaryCount { get; set; }
-        public List<SalaryPaymentDetail> salaryPaymentDetails { get; set; }
-    }
+    // public class Data
+    // {
+    //     public string customerId { get; set; }
+    //     public string accountNumber { get; set; }
+    //     public string bankCode { get; set; }
+    //     public string bvn { get; set; }
+    //     public string companyName { get; set; }
+    //     public string category { get; set; }
+    //     public string firstPaymentDate { get; set; }
+    //     public string salaryCount { get; set; }
+    //     public List<SalaryPaymentDetail> salaryPaymentDetails { get; set; }
+    // }
 
-    public class SalaryPaymentDetail
-    {
-        public string paymentDate { get; set; }
-        public string amount { get; set; }
-        public string accountNumber { get; set; }
-        public string bankCode { get; set; }
-    }
+    // public class SalaryPaymentDetail
+    // {
+    //     public string paymentDate { get; set; }
+    //     public string amount { get; set; }
+    //     public string accountNumber { get; set; }
+    //     public string bankCode { get; set; }
+    // }
 }

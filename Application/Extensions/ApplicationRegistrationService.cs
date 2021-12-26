@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Interfaces.Services;
+using FluentValidation;
 using Infrastructure.Helpers;
 using Infrastructure.Services;
 using MediatR;
@@ -25,6 +26,8 @@ namespace Application.Extensions
             services.AddScoped<IHttpCommunication,HttpCommunication>();
             services.AddScoped<ITransactionStatusService,TransactionStatusService>();
             services.AddScoped<ILendingSupportService,LendingSupportService>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             // services.AddHttpClient<ITransactionStatusService,TransactionStatusService>(x =>
             //     x.BaseAddress = new Uri(config["Remita:BaseUrl"]))
             //     .AddPolicyHandler(GetRetryPolicy())
