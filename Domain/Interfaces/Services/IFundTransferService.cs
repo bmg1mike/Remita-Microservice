@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.Models.Banks;
+using Domain.Models.BulkPayment;
+using Domain.Models.BulkPaymentCheckStatus;
 using Domain.Models.NameEquiry;
+using Domain.Models.SinglePayment;
+using Domain.Models.SinglePaymentStatusCheck;
 
 namespace Domain.Interfaces.Services
 {
@@ -11,5 +11,9 @@ namespace Domain.Interfaces.Services
     {
         Task<BankResponse> GetActiveBanks();
         Task<NameEquiryResponse> NameEquiry(NameEnquiryRequest request, string accessToken);
+        Task<SinglePaymentResponse> SinglePayment(SinglePaymentRequest request, string accessToken);
+        Task<SinglePaymentStatusCheckResponse> SinglePaymentCheckStatus(string transactionRef,string accessToken);
+        Task<BulkPaymentResponse> BulkPayment(BulkPaymentRequest request, string accessToken);
+        Task<BulkPaymentCheckStatusResponse> BulkPaymentCheckStatus(string batchRef,string accessToken);
     }
 }

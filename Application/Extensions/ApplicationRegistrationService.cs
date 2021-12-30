@@ -30,6 +30,8 @@ namespace Application.Extensions
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddScoped<IFundTransferService,FundTransferService>();
             services.AddScoped<IAuthenticationService,AuthenticationService>();
+            services.AddScoped<IReferenceDataService,ReferenceDataService>();
+            services.AddScoped<IBillerAggregationService,BillerAggregationService>();
             // services.AddHttpClient<ITransactionStatusService,TransactionStatusService>(x =>
             //     x.BaseAddress = new Uri(config["Remita:BaseUrl"]))
             //     .AddPolicyHandler(GetRetryPolicy())

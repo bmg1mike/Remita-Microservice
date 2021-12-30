@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
 
-    public class AuthController : BaseApiController
+    public class AuthorizationController : BaseApiController
     {
         private readonly IMediator _mediator;
 
-        public AuthController(IMediator mediator)
+        public AuthorizationController(IMediator mediator)
         {
             _mediator = mediator;
         }

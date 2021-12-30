@@ -1,7 +1,11 @@
 using Domain.Interfaces;
 using Domain.Interfaces.Services;
 using Domain.Models.Banks;
+using Domain.Models.BulkPayment;
+using Domain.Models.BulkPaymentCheckStatus;
 using Domain.Models.NameEquiry;
+using Domain.Models.SinglePayment;
+using Domain.Models.SinglePaymentStatusCheck;
 using Infrastructure.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -73,6 +77,102 @@ namespace Infrastructure.Services
                  }
 
                  _logger.LogInformation($"The response was not successful.{response.Content}");
+                 return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<SinglePaymentResponse> SinglePayment(SinglePaymentRequest request, string accessToken)
+        {
+            try
+            {
+                var hostUrl = "https://remitademo.net/remita/exapp/api/v1/send/api/rpgsvc/v3/rpg/single/payment";
+                var headers = new Dictionary<string,string>();
+                headers.Add("Authorization", $"Bearer {accessToken}");
+                var response = await _client.HttpAsync(Method.POST,hostUrl,headers,request);
+
+                if (response.IsSuccessful)
+                {
+                    var result = response.Content;
+                    return JsonConvert.DeserializeObject<SinglePaymentResponse>(result);
+                }
+                _logger.LogInformation($"The response was not successful.{response.Content}");
+                 return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<SinglePaymentStatusCheckResponse> SinglePaymentCheckStatus(string transactionRef, string accessToken)
+        {
+            try
+            {
+                 var hostUrl = $"https://remitademo.net/remita/exapp/api/v1/send/api/rpgsvc/v3/rpg/single/payment/status/{transactionRef}";
+                 var headers = new Dictionary<string,string>();
+                 headers.Add("Authorization", $"Bearer {accessToken}");
+                 var response = await _client.HttpAsync(Method.GET,hostUrl,headers,null);
+
+                if (response.IsSuccessful)
+                {
+                    var result = response.Content;
+                    return JsonConvert.DeserializeObject<SinglePaymentStatusCheckResponse>(result);
+                }
+                _logger.LogInformation($"The response was not successful.{response.Content}");
+                 return null;
+            }
+            catch (Exception ex)
+            {
+               _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<BulkPaymentResponse> BulkPayment(BulkPaymentRequest request, string accessToken)
+        {
+            try
+            {
+                var hostUrl = "https://remitademo.net/remita/exapp/api/v1/send/api/rpgsvc/v3/rpg/bulk/payment";
+                var headers = new Dictionary<string,string>();
+                headers.Add("Authorization", $"Bearer {accessToken}");
+                var response = await _client.HttpAsync(Method.POST,hostUrl,headers,request);
+
+                if (response.IsSuccessful)
+                {
+                    var result = response.Content;
+                    return JsonConvert.DeserializeObject<BulkPaymentResponse>(result);
+                }
+                _logger.LogInformation($"The response was not successful.{response.Content}");
+                 return null;
+            }
+            catch (Exception ex)
+            {
+               _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<BulkPaymentCheckStatusResponse> BulkPaymentCheckStatus(string batchRef,string accessToken)
+        {
+            try
+            {
+                 var hostUrl = $"https://remitademo.net/remita/exapp/api/v1/send/api/rpgsvc/v3/rpg/bulk/payment/status/{batchRef}";
+                 var headers = new Dictionary<string,string>();
+                 headers.Add("Authorization", $"Bearer {accessToken}");
+                 var response = await _client.HttpAsync(Method.GET,hostUrl,headers,null);
+
+                if (response.IsSuccessful)
+                {
+                    var result = response.Content;
+                    return JsonConvert.DeserializeObject<BulkPaymentCheckStatusResponse>(result);
+                }
+                _logger.LogInformation($"The response was not successful.{response.Content}");
                  return null;
             }
             catch (Exception ex)
